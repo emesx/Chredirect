@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+
+	"name": "Chredirect",
+	"version": "1.0",
+	"description": "Chrome extension for user-defined redirect rules",
+	"author": "emesx",
+	
+	"background": { 
+		"scripts" : ["background.js"]
+	},
+	
+	"permissions": [
+		"tabs",
+		"management",
+		"webRequest",
+		"webRequestBlocking",
+		"webNavigation",
+		"http://*/*",
+		"https://*/*"
+	]
+}
