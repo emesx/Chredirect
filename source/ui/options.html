@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Chredirect Options</title>
+	<link rel="icon" type="image/png" href="../images/icon16.png"/>
+	<link rel="stylesheet" href="options.css">
+	<script src="jquery.js"></script>
+	<script src="options.js"></script>
+</head>
+
+<body>
+ <div id="container">
+	<header>
+		<h1>Chredirect Options</h1>
+		<div style="float: right; margin-top: -3em; margin-right: 1.7em;">
+			<button id="saveButton" class="positive">Save</button>
+		</div>
+	</header>
+
+	<main>
+		<table id="ruleTable">
+			<thead>
+				<th width="62px">Active</th>
+				<th width="247px">Name</th>
+				<th width="247px">Pattern</th>
+				<th width="247px">Replacement</th>
+				<th width="124px"><button id="addButton" class="positive">Add</button></th>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</main>
+
+	<footer>
+		&copy; 2014 emesx
+	</footer>
+</div>
+
+<div style="display:none;">
+	<table>
+		<tr id="ruleRowTemplate">
+			<td> <input type="checkbox" class="inputActive" checked/> </td>
+			<td> <input type="text" class="inputName"    placeholder="e.g. Redirect Bing to Google"/> </td>
+			<td> <input type="text" class="inputPattern" placeholder="e.g. bing.com/search?q="/> </td>
+			<td> <input type="text" class="inputReplace" placeholder="e.g. google.com#q="/> </td>
+			<td> <button class="deleteButton negative">Delete</button> </td>
+		</tr>
+	</table>
+</div>
+
+</body>
+</html>
