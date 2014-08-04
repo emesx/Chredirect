@@ -8,14 +8,23 @@ $(function(){
 function loadRules(){
 	chrome.storage.sync.get({'rules': []}, function(result) {
 		var rules = result.rules;
-		console.log(rules);
+		console.log('Loaded rules', rules);
+
+		for(var idx=0; idx<rules.length; ++idx){
+			var rule = rules[idx],
+				$el = addRule();
+
+			$el.find('.inputActive').prop('checked', rule.active);
+			$el.find('.inputName').val(rule.name);
+			$el.find('.inputPattern').val(rule.pattern);
+			$el.find('.inputReplace').val(rule.replace);
+		}
 	});
 }
 
 function saveRules(){
-	console.log('Saving rules...');
 	var rules = [];
-	$("#ruleTable").find('tbody tr').each(function(idx, el){
+	$('#ruleTable').find('tbody tr').each(function(idx, el){
 		var $el = $(el);
 		
 		var rule = {
@@ -29,15 +38,18 @@ function saveRules(){
 		rules.push(rule);
 	});
 	
-
+	console.log('Saving rules', rules);
 	chrome.storage.sync.set({'rules': rules}, function() {
-		console.log(rules);	
-		alert('Setting saved.');
+		var $msg = $('#saveMessage');
+		$msg.text('Saved...').fadeIn(100);
+		setTimeout(function(){$msg.fadeOut();}, 1500);
 	});
 }
 
 function addRule(){
-	$("#ruleRowTemplate").clone().attr("id",null).appendTo("#ruleTable tbody");
+	var row$ = $("#ruleRowTemplate").clone().attr("id",null);
+	row$.appendTo("#ruleTable tbody");
+	return row$;
 }
 
 function deleteRule(){

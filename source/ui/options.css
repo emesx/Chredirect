@@ -72,6 +72,11 @@ button {
 	background-color: #2C2;
 }
 
+.positiveText {
+	color: #2C2;
+	margin-right: 0.5em;
+}
+
 .negative {
 	background-color: #C22;
 }
