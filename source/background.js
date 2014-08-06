@@ -1,39 +1,47 @@
 console.log('Chredirect running...');
 
 chrome.webRequest.onBeforeRequest.addListener(
-	checkRedirect, {urls: ["<all_urls>"]}, ["blocking"]
+    checkRedirect, {urls: ["<all_urls>"]}, ["blocking"]
 );
 
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-	for (key in changes) {
-		var storageChange = changes[key];
-		console.log('Storage key "%s" in namespace "%s" changed. ' +
-					'Old value was "%s", new value is "%s".',
-					key,
-					namespace,
-					storageChange.oldValue,
-					storageChange.newValue
-		);
-	}
+chrome.storage.onChanged.addListener(updateRules);
+
+var rules = [];
+
+chrome.storage.sync.get({'rules': []}, function(result) {
+    rules = result.rules;
 });
 
 function checkRedirect(details) {
-	var location = getLocation(details.url);
+    if(details.type !== 'main_frame' && details.type !== 'sub_frame')
+        return {cancel: false};         
 
-	if(/wykop.pl/.test(location.hostname) && (details.type === 'main_frame' || details.type === 'sub_frame')) {
-		var redirectUrl = 'http://w.rdir.pl' + location.pathname;
-		console.info('Redirecting ', details.url, 'to', redirectUrl);			
-		return {redirectUrl: redirectUrl};
-	}
-	return {cancel: false}; 
+    for(var i=0; i<rules.length; ++i){
+        var rule = rules[i];
+        console.log("Testing rule `", rule.name, "` on request URL ", details.url);
+
+        if(!rule.active)
+            continue;
+
+        var re = new RegExp(rule.pattern);
+        if(re.test(details.url)){
+            console.log("Rule `", rule.name, "` matched, redirecting...");
+
+            var redirectUrl = details.url.replace(re, new RegExp(rule.replace));
+            if(redirectUrl[0] == '/')
+                redirectUrl = redirectUrl.substring(1, redirectUrl.length-1); // TODO dirty hack
+
+            console.info('Redirecting', details.url, 'to', redirectUrl);           
+            return {redirectUrl: redirectUrl};
+        }
+    }
+
+    return {cancel: false};
 }
 
-function getLocation(href) {
-	var l = document.createElement('a');
-	l.href = href;
-	return l;
-};
+function updateRules(changes, namespace) {
+    var rulesChange = changes['rules'];
 
-function arrayIs(array, element){
-	return array[0] == element;
+    console.info("Updating rules from", rulesChange.oldValue, "to", rulesChange.newValue);
+    rules = rulesChange.newValue;
 }

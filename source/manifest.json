@@ -1,36 +1,36 @@
 {
-	"manifest_version": 2,
+    "manifest_version": 2,
 
-	"name": "Chredirect",
-	"version": "1.0",
-	"description": "Chrome extension for user-defined redirect rules",
-	"author": "emesx",
-	
-	"background": { 
-		"scripts" : ["background.js"]
-	},
+    "name": "Chredirect",
+    "version": "1.0",
+    "description": "Chrome extension for user-defined redirect rules",
+    "author": "emesx",
+    
+    "background": { 
+        "scripts" : ["background.js"]
+    },
 
-	"options_page": "ui/options.html",
+    "options_page": "ui/options.html",
 
-	"icons": {
-		 "16": "images/icon16.png",
-		 "32": "images/icon32.png",
-		 "48": "images/icon48.png",
-		"128": "images/icon128.png"
-	},
+    "icons": {
+         "16": "images/icon16.png",
+         "32": "images/icon32.png",
+         "48": "images/icon48.png",
+        "128": "images/icon128.png"
+    },
 
-	"browser_action": {
-		"default_icon": {"19": "images/icon19.png" }
-	},
+    "browser_action": {
+        "default_icon": {"19": "images/icon19.png" }
+    },
 
-	"permissions": [
-		"tabs",
-		"management",
-		"storage",
-		"webRequest",
-		"webRequestBlocking",
-		"webNavigation",
-		"http://*/*",
-		"https://*/*"
-	]
+    "permissions": [
+        "tabs",
+        "management",
+        "storage",
+        "webRequest",
+        "webRequestBlocking",
+        "webNavigation",
+        "http://*/*",
+        "https://*/*"
+    ]
 }
