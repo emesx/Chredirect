@@ -12,6 +12,7 @@
 <body>
  <div id="container">
     <header>
+        <img src="../images/icon48.png"/ style="float: left; margin-right: 16px;">
         <h1>Chredirect Options</h1>
         <div style="float: right; margin-top: -3em; margin-right: 1.7em;">
             <span id="saveMessage" class="positiveText"></span>
@@ -32,6 +33,31 @@
             </tbody>
         </table>
     </main>
+
+    <section>
+        <h3>Description and example</h3>
+        <p>
+            Rules are defined as a <i>patterns</i> (JavaScript regular expression) that requested URLs will be tested against and <i>replacements</i> (also regular expressions).
+            The rules are tested in order they are defined and the first rule pattern to match the URL (if any) will transform the URL using the user defined replacement.
+            Inactive rules are not tested.
+            The whole process takes place before sending the original request.
+        </p>
+        <p>
+            Example:
+            <ul>
+                <li>
+                    Pattern <code>(.*)?bing\.com/search\?q=(.*)?</code>
+                    with replacement <code>$1google.com/search?q=$2</code>
+                    will redirect any search call from Bing to Google.
+                </li>
+                <li>
+                    Pattern <code>(.*)?youtube\.com/watch\?v=(.+)?</code>
+                    with replacement <code>$1youtube.com/v/$2</code>
+                    will redirect any request from YouTube to its full-screen mode.
+                </li>
+            </ul>
+        </p>
+    </section>
 
     <footer>
         &copy; 2014 emesx

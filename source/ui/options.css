@@ -22,7 +22,6 @@ h1 {
 footer {
     font-size: 0.8em;
     border-top: 1px solid #aaa;
-    margin-top: 16px;
     padding: 16px;
 }
 
@@ -38,6 +37,11 @@ main {
     padding: 16px;
 }
 
+section {
+    padding: 16px;
+    font-size:0.8em;
+}
+
 th {
     text-align: left;
 }
@@ -50,6 +54,11 @@ input {
     display: inline-block;
     padding: 8px;
     width: 90%;
+}
+
+input[type='text'] {
+    font-family: Courier New, monospace;
+    font-size: 0.8em !important;
 }
 
 input[type='checkbox'] {
